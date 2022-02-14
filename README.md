@@ -11,15 +11,10 @@ Note: To run it in an android emulator, you need to have Andriod Studio installe
 We are using expo for this project, more info at https://docs.expo.dev/
 
 ***Folder Structure*** 
-This project is divided into 4 layers:
-1. Application
-2. Domain
-3. Infrastructure 
-4. Screens
+We will be working on the following four folders:
+1. Navigators
+2. Screens
+3. Shared 
+4. Redux (To be built)
 
-Under each of these folders you will find a readme that basically explains what the layers are about. 
-
-
-***Working with Git***
-
-Create a branch for the feature you are working on. For example: ShoppingListScreen, SettingsScreen, ListComponent, etc. Once you have tested your code and everything works fine request a PR on github. We will test the code together and merge it to main.
+Under each of these folders a readme file will be created that explains the folder. 
