@@ -19,7 +19,7 @@ function MyStack(){
             />
 
             <Stack.Screen
-                name = "Register"
+                name = 'Register'
                 component={Register}
                 options = {{
                     headerShown: false

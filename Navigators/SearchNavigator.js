@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Search from "../Screens/Search/Search";
+import DateContainer from '../Screens/Dates/DateContainer';
 
 const Stack = createStackNavigator()
 
@@ -11,6 +12,13 @@ function MyStack(){
             <Stack.Screen
                 name = 'Search'
                 component = { Search }
+                options = {{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name = 'Results'
+                component = { DateContainer }
                 options = {{
                     headerShown: false,
                 }}
