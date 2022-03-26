@@ -6,10 +6,5 @@ import { NavigationContainer } from "@react-navigation/native";
 import Main from "./Navigators/Main";
 
 export default function App() {
-  return (
-    <NavigationContainer>
-        <Main />
-        <StatusBar style="auto" />
-    </NavigationContainer>
-  );
+  return <Main />;
 }
