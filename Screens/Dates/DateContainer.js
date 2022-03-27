@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, Dimensions, StyleSheet, Image } from "react-native-web";
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  Image,
+  Button,
+} from "react-native";
 import DateList from "./DateList";
 
 const data = require("../../assets/data/dates.json");
@@ -10,14 +17,14 @@ var { width, height } = Dimensions.get("window");
 const DateContainer = (props) => {
   return (
     <View style={styles.container}>
-      <View style={styles.adView}>
+      {/* <View style={styles.adView}>
         <Image
           style={styles.adImage}
           source={{
             uri: "https://www.uttyler.edu/_resources/atlas/home/20210616-stronger-together.jpg",
           }}
         />
-      </View>
+      </View> */}
       <Text style={styles.title}>The Date</Text>
       <View style={styles.dateView}>
         <Image
@@ -47,13 +54,20 @@ const DateContainer = (props) => {
           Budget: ${data[count].budget}
         </Text>
       </View>
+      <View style={{ marginTop: 20 }}></View>
+      <View>
+        <Button title="Save Date"></Button>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
   },
   dateDetailText: {
     color: "white",

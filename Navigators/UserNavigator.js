@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../Screens/Authentication/Login";
 import Register from "../Screens/Authentication/Register";
 import UserProfile from "../Screens/Authentication/UserProfile";
+import AppTabs from "./AppTabs";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,14 @@ function AuthStack() {
       <Stack.Screen
         name="Register"
         component={Register}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="AppHome"
+        component={AppTabs}
         options={{
           headerShown: false,
         }}

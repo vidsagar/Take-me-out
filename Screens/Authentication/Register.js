@@ -12,12 +12,11 @@ const Register = (props) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const register = () =>{
-      if(email === '' || name ==='' || password === '')
-      {
-        setError("Please fill in the form correctly")
-      }
-  }
+  const register = () => {
+    if (email === "" || name === "" || password === "") {
+      setError("Please fill in the form correctly");
+    }
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -45,14 +44,19 @@ const Register = (props) => {
           secureTextEntry={true}
           onChangeText={(text) => setPassword(text)}
         />
-        <View style = {styles.buttonGroup}>{error ? <Error message={error} /> : null}</View>
-        <View>
-            <Button title = {"Register"} onPress = {()=>register()}/>
+        <View style={styles.buttonGroup}>
+          {error ? <Error message={error} /> : null}
         </View>
         <View>
-            <Button title = {"Back to Login"} on onPress={
-                ()=>props.navigation.navigate("Login")
-            }/>
+          <Button title={"Register"} onPress={() => register()} />
+        </View>
+        <View style={{ height: 25 }} />
+        <View>
+          <Button
+            title={"Back to Login"}
+            on
+            onPress={() => props.navigation.navigate("Login")}
+          />
         </View>
       </FormContainer>
     </KeyboardAwareScrollView>
@@ -60,11 +64,11 @@ const Register = (props) => {
 };
 
 const styles = StyleSheet.create({
-    buttonGroup: {
-        width: '80%',
-        margin: 10,
-        alignItems: 'center'
-    }
-})
+  buttonGroup: {
+    width: "80%",
+    margin: 10,
+    alignItems: "center",
+  },
+});
 
 export default Register;

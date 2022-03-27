@@ -35,12 +35,12 @@ const AppTabs = () => {
         }}
       />
       <Tab.Screen
-        name="User"
-        component={UserNavigator}
+        name="SavedDates"
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon
-              name="user"
+              name="book"
               style={{ position: "relative" }}
               color={color}
               size={30}

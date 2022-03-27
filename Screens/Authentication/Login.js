@@ -40,10 +40,15 @@ const Login = (props) => {
         onChangeText={(text) => setPassword(text)}
       />
       <View style={styles.buttonGroup}>
-          {error? <Error message = {error} /> :null}
-        <Button title="Login" onPress={()=> handleSubmit()} />
+        {error ? <Error message={error} /> : null}
+        {/* Use after connectingg with backend */}
+        {/* <Button title="Login" onPress={() => handleSubmit()} /> */}
+        <Button
+          title="Login"
+          onPress={() => props.navigation.navigate("AppHome")}
+        />
       </View>
-      <View style={[{ marginTop: 40 }, styles.buttonGroup]}>
+      <View style={[{ marginTop: 10 }, styles.buttonGroup]}>
         <Text style={styles.middleText}>Don't have an account yet?</Text>
         <Button
           title="Register"
@@ -60,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   middleText: {
-    marginBottom: 20,
+    marginBottom: 10,
     alignSelf: "center",
   },
 });

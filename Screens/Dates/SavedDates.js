@@ -1,36 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import {View, Text, StyleSheet, ActivityIndicator, FlatList, DatePickerIOS} from 'react-native'
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  FlatList,
+  DatePickerIOS,
+} from "react-native";
 
-import DateList from './DateList';
+import DateList from "./DateList";
 
-const data = require('../../assets/data/dates.json');
+const data = require("../../assets/data/dates.json");
 
 const DateContainer = () => {
+  const [dates, setDate] = useState([]);
 
-    const [dates, setDate]  = useState([]);
+  useEffect(() => {
+    setDate(data);
+    return () => {
+      setDate([]);
+    };
+  }, []);
 
-    useEffect(() => {
-        setDate(data);
-        return() =>{
-            setDate([])
-        }
-    },[])
+  return (
+    <View style={Styles.container}>
+      <FlatList
+        data={dates}
+        //renderItem={({item})=><Text>{item.name}</Text>}
+        renderItem={({ item }) => <DateList key={item.id} item={item} />}
+        keyExtractor={(item) => item.name}
+      />
+    </View>
+  );
+};
 
-    return (
-        <View>
-            <View >
-            <FlatList 
-                data = {dates}
-                //renderItem={({item})=><Text>{item.name}</Text>}
-                renderItem = {({item}) => <DateList
-                key={item.id}
-                item={item}
-                />}
-                keyExtractor={item =>item.name}
-            />
-            </View>
-        </View>
-    )
-}
+const Styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
+});
 
 export default DateContainer;

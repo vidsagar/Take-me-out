@@ -6,7 +6,7 @@ import AppTabs from "./AppTabs";
 import UserNavigator from "./UserNavigator";
 
 const Main = () => {
-  const user = true;
+  const user = false;
   return (
     <NavigationContainer>
       {user ? <AppTabs /> : <UserNavigator />}
