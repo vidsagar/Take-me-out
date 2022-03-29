@@ -28,9 +28,8 @@ const Login = (props) => {
     if (email === "" || password === "") {
       setError("Please fill in your credentials");
     } else {
-      {
-        props.navigation.navigate("AppHome");
-      }
+      props.navigation.navigate("AppHome");
+      // loginUser(user, context.dispatch);
     }
   };
 

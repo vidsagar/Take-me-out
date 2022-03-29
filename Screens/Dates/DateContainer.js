@@ -8,9 +8,10 @@ import {
   Button,
 } from "react-native";
 import DateList from "./DateList";
+import Toast from "react-native-toast-message";
 
 const data = require("../../assets/data/dates.json");
-const count = 1;
+const count = 2;
 
 var { width, height } = Dimensions.get("window");
 
@@ -56,7 +57,17 @@ const DateContainer = (props) => {
       </View>
       <View style={{ marginTop: 20 }}></View>
       <View>
-        <Button title="Save Date"></Button>
+        <Button
+          title="Save Date"
+          onPress={() =>
+            Toast.show({
+              topOffset: 60,
+              type: "success",
+              text1: "Date saved successfully",
+              text2: "You can view your saved dates in the saved dates tab",
+            })
+          }
+        ></Button>
       </View>
     </View>
   );
