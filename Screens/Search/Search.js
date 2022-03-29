@@ -16,14 +16,28 @@ const Search = (props) => {
           name={"state"}
           id={"state"}
           value={state}
+          onChangeText={(text) => setState(text.toLowerCase())}
         />
-        <Input placeholder={"Zip"} name={"zip"} id={"zip"} value={zip} />
-        <Input placeholder={"Date"} name={"date"} id={"date"} value={date} />
+        <Input
+          placeholder={"Zip"}
+          name={"zip"}
+          id={"zip"}
+          value={zip}
+          onChangeText={(text) => setZip(text.toLowerCase())}
+        />
+        <Input
+          placeholder={"Date"}
+          name={"date"}
+          id={"date"}
+          value={date}
+          onChangeText={(text) => setDate(text.toLowerCase())}
+        />
         <Input
           placeholder={"Budget"}
           name={"budget"}
           id={"budget"}
           value={budget}
+          onChangeText={(text) => setBudget(text.toLowerCase())}
         />
         <Button
           title="Search"

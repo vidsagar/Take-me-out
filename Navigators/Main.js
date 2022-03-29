@@ -7,11 +7,7 @@ import UserNavigator from "./UserNavigator";
 
 const Main = () => {
   const user = false;
-  return (
-    <NavigationContainer>
-      {user ? <AppTabs /> : <UserNavigator />}
-    </NavigationContainer>
-  );
+  return <UserNavigator />;
 };
 
 export default Main;
