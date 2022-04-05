@@ -28,8 +28,8 @@ const Login = (props) => {
     if (email === "" || password === "") {
       setError("Please fill in your credentials");
     } else {
-      props.navigation.navigate("AppHome");
-      // loginUser(user, context.dispatch);
+      //props.navigation.navigate("AppHome");
+      loginUser(user, context.dispatch);
     }
   };
 
@@ -52,12 +52,7 @@ const Login = (props) => {
       />
       <View style={styles.buttonGroup}>
         {error ? <Error message={error} /> : null}
-        {/* Use after connectingg with backend */}
         <Button title="Login" onPress={() => handleSubmit()} />
-        {/* <Button
-          title="Login"
-          onPress={() => props.navigation.navigate("AppHome")}
-        /> */}
       </View>
       <View style={[{ marginTop: 10 }, styles.buttonGroup]}>
         <Text style={styles.middleText}>Don't have an account yet?</Text>
