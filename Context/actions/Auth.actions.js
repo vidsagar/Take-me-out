@@ -29,8 +29,8 @@ export const loginUser = (user, dispatch) => {
       Toast.show({
         topOffset: 60,
         type: "error",
-        text1: "Please provide correct credentials",
-        text2: "",
+        text1: "Incorrect credentials",
+        text2: "Please provide correct credentials",
       });
       logoutUser(dispatch);
     });

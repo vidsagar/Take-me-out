@@ -15,8 +15,6 @@ const FormContainer = (props) => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    marginTop: 30,
-    marginBottom: 400,
     width: width,
     justifyContent: "center",
     alignItems: "center",
@@ -24,6 +22,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
+    marginBottom: 20,
+    fontWeight: "bold",
   },
 });
 

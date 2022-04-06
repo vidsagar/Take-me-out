@@ -45,12 +45,23 @@ const Register = (props) => {
         }
       })
       .catch((error) => {
-        Toast.show({
-          topOffset: 60,
-          type: "error",
-          text1: "Something went wrong",
-          text2: "Please try again",
-        });
+        var errorString = JSON.stringify(error);
+        var errorObj = JSON.parse(errorString);
+        if (errorObj.status == 409) {
+          Toast.show({
+            topOffset: 60,
+            type: "error",
+            text1: "Account already exists. Please login",
+            text2: "Not you? Sign up with a different email",
+          });
+        } else {
+          Toast.show({
+            topOffset: 60,
+            type: "error",
+            text1: "Something went wrong",
+            text2: "Please try again",
+          });
+        }
       });
   };
 
@@ -87,7 +98,7 @@ const Register = (props) => {
           onChangeText={(text) => setPassword(text)}
         />
         <View style={styles.buttonGroup}>
-          {error ? <Error message={error} /> : null}
+          <Text>{error ? error : null}</Text>
         </View>
         <View>
           <Button title={"Register"} onPress={() => register()} />

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import FormContainer from "../../Shared/Form/FormContainer";
 import Input from "../../Shared/Form/Input";
 import Error from "../../Shared/Form/Error";
+import Toast from "react-native-toast-message";
 
 // Context API
 import AuthGlobal from "../../Context/store/AuthGlobal";
@@ -51,7 +52,7 @@ const Login = (props) => {
         onChangeText={(text) => setPassword(text)}
       />
       <View style={styles.buttonGroup}>
-        {error ? <Error message={error} /> : null}
+        <Text style={{ color: "red", margin: 10 }}>{error ? error : null}</Text>
         <Button title="Login" onPress={() => handleSubmit()} />
       </View>
       <View style={[{ marginTop: 10 }, styles.buttonGroup]}>
