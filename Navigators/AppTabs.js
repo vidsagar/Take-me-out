@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import HomeNavigator from "./HomeNavigator";
 import UserNavigator from "./UserNavigator";
 import SearchNavigator from "./SearchNavigator";
+import UserProfile from "../Screens/Authentication/UserProfile";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,6 +19,15 @@ const AppTabs = () => {
         keyboardHidesTabBar: true,
         showLabel: false,
         activeTintColor: "#e91e63",
+        tabBarHideOnKeyboard: true,
+        tabBarActiveTintColor: "#e91e63",
+        tabBarShowLabel: false,
+        tabBarStyle: [
+          {
+            display: "flex",
+          },
+          null,
+        ],
       }}
     >
       <Tab.Screen
@@ -41,6 +51,20 @@ const AppTabs = () => {
           tabBarIcon: ({ color }) => (
             <Icon
               name="book"
+              style={{ position: "relative" }}
+              color={color}
+              size={30}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="UserProfile"
+        component={UserProfile}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon
+              name="user"
               style={{ position: "relative" }}
               color={color}
               size={30}

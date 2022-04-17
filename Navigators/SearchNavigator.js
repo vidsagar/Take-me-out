@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Search from "../Screens/Search/Search";
 import DateContainer from "../Screens/Dates/DateContainer";
 import SavedDates from "../Screens/Dates/SavedDates";
-
+import Login from "../Screens/Authentication/Login";
 const Stack = createStackNavigator();
 
 function MyStack() {
@@ -20,6 +20,13 @@ function MyStack() {
       <Stack.Screen
         name="Results"
         component={DateContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
         options={{
           headerShown: false,
         }}

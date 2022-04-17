@@ -34,14 +34,6 @@ function AuthStack() {
           headerShown: false,
         }}
       />
-
-      <Stack.Screen
-        name="UserProfile"
-        component={UserProfile}
-        options={{
-          headerShown: false,
-        }}
-      />
     </Stack.Navigator>
   );
 }
