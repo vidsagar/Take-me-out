@@ -48,6 +48,7 @@ const AppTabs = () => {
         name="SavedDates"
         component={HomeNavigator}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({ color }) => (
             <Icon
               name="book"

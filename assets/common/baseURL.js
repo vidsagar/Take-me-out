@@ -1,6 +1,3 @@
-import { BaseRouter } from "@react-navigation/native";
-import { Platform } from "react-native";
-
 let baseURL = "";
 
 {

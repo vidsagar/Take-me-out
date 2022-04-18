@@ -3,17 +3,17 @@ import { useState, useContext, useEffect, useCallback } from "react";
 import { View, Text, Button } from "react-native";
 import FormContainer from "../../Shared/Form/FormContainer";
 import Input from "../../Shared/Form/Input";
-import DateContainer from "../Dates/DateContainer";
-
+import MapView, { Marker } from "react-native-maps";
 import RadioGroup from "react-native-radio-buttons-group";
 import * as Location from "expo-location";
+import { StyleSheet, Dimensions } from "react-native";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseURL";
 
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+var { width, height } = Dimensions.get("window");
 const radioButtonsData = [
   {
     id: "1", // acts as primary key, should be unique and non-empty string
@@ -47,7 +47,9 @@ const Search = (props) => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        setErrorMsg(
+          "Permission to access location was denied.\nRestart app and allow location access."
+        );
         return;
       }
 
@@ -119,6 +121,7 @@ const Search = (props) => {
         <View style={{ width: "80%", alignContent: "flex-start" }}>
           <Text>Date:</Text>
         </View>
+
         <Input
           placeholder={"YYYY-MM-DD"}
           name={"date"}
@@ -126,6 +129,32 @@ const Search = (props) => {
           value={date}
           onChangeText={(text) => setDate(text)}
         />
+        <View
+          style={{ width: "80%", alignContent: "flex-start", marginBottom: 10 }}
+        >
+          <Text>Pick a location:</Text>
+        </View>
+        <View style={styles.MapView}>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: 32.3513,
+              longitude: -95.3011,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          >
+            <Marker
+              coordinate={{ latitude: 32.3513, longitude: -95.3011 }}
+              title="Test Title"
+              draggable={true}
+              onDragEnd={(e) => {
+                setLatitude(e.nativeEvent.coordinate.latitude);
+                setLongitude(e.nativeEvent.coordinate.longitude);
+              }}
+            ></Marker>
+          </MapView>
+        </View>
         <View>
           <Text style={{ textAlign: "center", margin: 10 }}>
             Indoor or Outdoor?
@@ -145,5 +174,18 @@ const Search = (props) => {
     </FormContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  MapView: {
+    width: "80%",
+    height: 200,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  map: {
+    width: "100%",
+    height: 200,
+  },
+});
 
 export default Search;

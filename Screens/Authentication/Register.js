@@ -70,6 +70,12 @@ const Register = (props) => {
       viewIsInsideTabBar={true}
       extraHeight={200}
       enableOnAndroid={true}
+      contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
     >
       <FormContainer title={"Register"}>
         <Input

@@ -3,19 +3,11 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseURL";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import React, { useEffect, useState, useContext } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-} from "react-native";
-
-import { connect } from "react-redux";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
 import DateList from "./DateList";
 
-const DateContainer = () => {
+const SavedDates = () => {
   const [dates, setDate] = useState([]);
   const context = useContext(AuthGlobal);
 
@@ -34,7 +26,7 @@ const DateContainer = () => {
             }
           )
           .then((response) => {
-            console.log(response.data);
+            console.log(response);
             setDate(response.data);
           })
           .catch((error) => console.log(error));
@@ -44,19 +36,31 @@ const DateContainer = () => {
       setDate([]);
     };
   }, []);
-
-  console.log(dates);
-  return (
-    <View style={Styles.container}>
-      <FlatList
-        data={dates}
-        //renderItem={({item})=><Text>{item.name}</Text>}
-        renderItem={({ item }) => <DateList key={item._id} item={item} />}
-        keyExtractor={(item) => item.name}
-        contentContainerStyle={Styles.subContainer}
-      />
-    </View>
-  );
+  var filteredDates = dates.filter(function (el) {
+    return el != null;
+  });
+  if (filteredDates.length > 0) {
+    return (
+      <View style={Styles.container}>
+        <FlatList
+          data={filteredDates}
+          //renderItem={({item})=><Text>{item.name}</Text>}
+          renderItem={({ item }) => <DateList key={item._id} item={item} />}
+          keyExtractor={(item) => item.name}
+          contentContainerStyle={Styles.subContainer}
+        />
+      </View>
+    );
+  } else {
+    return (
+      <View style={Styles.container}>
+        <Text style={Styles.title}>No Saved Dates.</Text>
+        <Text style={{ textAlign: "center" }}>
+          Saved dates will appear here.
+        </Text>
+      </View>
+    );
+  }
 };
 
 const Styles = StyleSheet.create({
@@ -70,6 +74,12 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
   },
+  title: {
+    fontWeight: "bold",
+    fontSize: 48,
+    textAlign: "center",
+    marginBottom: 20,
+  },
 });
 
-export default DateContainer;
+export default SavedDates;

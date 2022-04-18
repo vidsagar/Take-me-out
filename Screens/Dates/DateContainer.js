@@ -7,68 +7,75 @@ import {
   Image,
   Button,
 } from "react-native";
-import DateList from "./DateList";
 import Toast from "react-native-toast-message";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Callout, Marker } from "react-native-maps";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import baseURL from "../../assets/common/baseURL";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 
-const data = require("../../assets/data/dates.json");
-
 var { width, height } = Dimensions.get("window");
 
 const DateContainer = (props) => {
+  const [disable, setDisable] = React.useState(false);
   const data = props.route.params.paramKey;
-  const count = Math.floor(Math.random() * data.length);
-  const photoURI =
-    "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" +
-    data[count].photoRef +
-    "&key=" +
-    "AIzaSyCCnKs_LHH60gSSMq841dgMbpwqe5KDP-o";
-
-  const context = useContext(AuthGlobal);
-  const saveThisDate = () => {
-    AsyncStorage.getItem("jwt")
-      .then((res) => {
-        let dateObject = {
-          dateItem: {
-            name: data[count].name,
-            photoRef: photoURI,
-            latitude: data[count].location.lat,
-            longitude: data[count].location.lng,
-            vicinity: data[count].vicinity,
-          },
-          user: context.stateUser.user.userId,
-        };
-        console.log(dateObject);
-        axios
-          .post(`${baseURL}date`, dateObject, {
-            headers: {
-              Authorization: `Bearer ${res}`,
-            },
-          })
-          .then((response) => {
-            console.log(response.data);
-            Toast.show({
-              topOffset: 60,
-              type: "success",
-              text1: "Date saved successfully",
-              text2: "You can view your saved dates in the saved dates tab",
-            });
-          })
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => console.log(error));
-  };
+  const [count, setCount] = React.useState(
+    Math.floor(Math.random() * data.length)
+  );
   if (data.length == 0) {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>No Results</Text>
       </View>
     );
-  } else if (data.length > 0)
+  } else if (data.length > 0) {
+    if (data[count].hasOwnProperty("photoRef")) {
+      if (data[count].indoorOutdoor) {
+        photoURI = data[count].photoRef;
+      } else if (!data[count].indoorOutdoor) {
+        photoURI =
+          "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" +
+          data[count].photoRef +
+          "&key=AIzaSyCCnKs_LHH60gSSMq841dgMbpwqe5KDP-o";
+      } else {
+        photoURI = "";
+      }
+    } else {
+      photoURI = "";
+    }
+    const context = useContext(AuthGlobal);
+    const saveThisDate = () => {
+      AsyncStorage.getItem("jwt")
+        .then((res) => {
+          let dateObject = {
+            dateItem: {
+              name: data[count].name,
+              photoRef: photoURI,
+              latitude: data[count].location.lat,
+              longitude: data[count].location.lng,
+              vicinity: data[count].vicinity,
+            },
+            user: context.stateUser.user.userId,
+          };
+          axios
+            .post(`${baseURL}date`, dateObject, {
+              headers: {
+                Authorization: `Bearer ${res}`,
+              },
+            })
+            .then((response) => {
+              setDisable(true);
+              Toast.show({
+                topOffset: 60,
+                type: "success",
+                text1: "Date saved successfully",
+                text2: "You can view your saved dates in the saved dates tab",
+              });
+            })
+            .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error));
+    };
     return (
       <View style={styles.container}>
         <Text style={styles.title}>The Date</Text>
@@ -90,9 +97,9 @@ const DateContainer = (props) => {
               title={data[count].name}
             >
               <Image
-                style={{ width: 200, height: 200 }}
+                style={{ width: 70, height: 70 }}
                 source={
-                  "photoRef" in data[count] ? (
+                  photoURI ? (
                     {
                       uri: photoURI,
                     }
@@ -124,6 +131,7 @@ const DateContainer = (props) => {
         <View style={{ marginTop: 20 }}></View>
         <View>
           <Button
+            disabled={disable}
             title="Save Date"
             onPress={() => {
               saveThisDate();
@@ -132,6 +140,7 @@ const DateContainer = (props) => {
         </View>
       </View>
     );
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {
