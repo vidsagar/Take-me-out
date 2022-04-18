@@ -7,6 +7,7 @@ import MapView, { Marker } from "react-native-maps";
 import RadioGroup from "react-native-radio-buttons-group";
 import * as Location from "expo-location";
 import { StyleSheet, Dimensions } from "react-native";
+import DatePicker from "react-native-datepicker";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseURL";
@@ -28,7 +29,8 @@ const radioButtonsData = [
 ];
 
 const Search = (props) => {
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState("4-4-2022");
+  const [dateServer, setDateServer] = useState("2022-04-20");
   const [indoorOutdoor, setIndoorOutdoor] = useState(radioButtonsData);
   const [keyword, setKeyword] = useState("");
   const [longitude, setLongitude] = useState();
@@ -109,7 +111,7 @@ const Search = (props) => {
     <FormContainer title="What's The Catch?">
       <View style={{ width: "100%", alignItems: "center" }}>
         <View style={{ width: "80%", alignContent: "flex-start" }}>
-          <Text>Keyword:</Text>
+          <Text style={{ fontWeight: "bold" }}>Keyword:</Text>
         </View>
         <Input
           placeholder={"Example: park"}
@@ -119,20 +121,63 @@ const Search = (props) => {
           onChangeText={(text) => setKeyword(text)}
         />
         <View style={{ width: "80%", alignContent: "flex-start" }}>
-          <Text>Date:</Text>
+          <Text style={{ fontWeight: "bold" }}>Date:</Text>
         </View>
+        <DatePicker
+          style={styles.datePickerStyle}
+          date={date}
+          mode="date"
+          placeholder="select date"
+          format="DD/MM/YYYY"
+          minDate="01-01-2022"
+          maxDate="01-01-2023"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              position: "absolute",
+              right: -5,
+              top: 4,
+              marginLeft: 0,
+            },
+            dateInput: {
+              borderColor: "gray",
+              alignItems: "flex-start",
+              borderWidth: 0,
+              borderBottomWidth: 1,
+            },
+            placeholderText: {
+              fontSize: 17,
+              color: "gray",
+            },
+            dateText: {
+              fontSize: 17,
+            },
+          }}
+          onDateChange={(date) => {
+            let dateArray = date.split("/");
+            console.log(dateServer);
+            setDate(date);
+            setDateServer(
+              dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0]
+            );
+          }}
+        />
 
-        <Input
+        {/* <Input
           placeholder={"YYYY-MM-DD"}
           name={"date"}
           id={"date"}
           value={date}
           onChangeText={(text) => setDate(text)}
-        />
+        /> */}
         <View
           style={{ width: "80%", alignContent: "flex-start", marginBottom: 10 }}
         >
-          <Text>Pick a location:</Text>
+          <Text style={{ fontWeight: "bold" }}>Pick a location:</Text>
+          <Text style={{ color: "#888888" }}>
+            Hold the map marker and drag it to choose location.
+          </Text>
         </View>
         <View style={styles.MapView}>
           <MapView
@@ -185,6 +230,29 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: 200,
+  },
+  container: {
+    flex: 1,
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#A8E9CA",
+  },
+  title: {
+    textAlign: "left",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  datePickerStyle: {
+    width: 230,
+    backgroundColor: "#ddf3ff",
+    marginBottom: 10,
+  },
+  text: {
+    textAlign: "left",
+    width: 230,
+    fontSize: 16,
+    color: "#000",
   },
 });
 

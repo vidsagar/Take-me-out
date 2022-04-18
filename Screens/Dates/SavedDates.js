@@ -26,7 +26,6 @@ const SavedDates = () => {
             }
           )
           .then((response) => {
-            console.log(response);
             setDate(response.data);
           })
           .catch((error) => console.log(error));
