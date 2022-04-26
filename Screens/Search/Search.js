@@ -70,7 +70,7 @@ const Search = (props) => {
   }
 
   const search = () => {
-    if (date === "" || location == "" || errorMsg) {
+    if (keyword === "" || date === "" || location == "") {
       setError("Please fill in the form");
       setTimeout(() => setError(null), 3000);
     } else {
@@ -120,7 +120,9 @@ const Search = (props) => {
           value={keyword}
           onChangeText={(text) => setKeyword(text)}
         />
-        <View style={{ width: "80%", alignContent: "flex-start" }}>
+        <View
+          style={{ width: "80%", alignContent: "flex-start", marginTop: 20 }}
+        >
           <Text style={{ fontWeight: "bold" }}>Date:</Text>
         </View>
         <DatePicker
@@ -156,7 +158,7 @@ const Search = (props) => {
           }}
           onDateChange={(date) => {
             let dateArray = date.split("/");
-            console.log(dateServer);
+
             setDate(date);
             setDateServer(
               dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0]
@@ -174,10 +176,7 @@ const Search = (props) => {
         <View
           style={{ width: "80%", alignContent: "flex-start", marginBottom: 10 }}
         >
-          <Text style={{ fontWeight: "bold" }}>Pick a location:</Text>
-          <Text style={{ color: "#888888" }}>
-            Hold the map marker and drag it to choose location.
-          </Text>
+          <Text style={{ fontWeight: "bold", marginTop: 20 }}>Location:</Text>
         </View>
         <View style={styles.MapView}>
           <MapView
@@ -185,13 +184,13 @@ const Search = (props) => {
             initialRegion={{
               latitude: 32.3513,
               longitude: -95.3011,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+              latitudeDelta: 1.2,
+              longitudeDelta: 1.2,
             }}
           >
             <Marker
               coordinate={{ latitude: 32.3513, longitude: -95.3011 }}
-              title="Test Title"
+              title="Drag Pin to select Location"
               draggable={true}
               onDragEnd={(e) => {
                 setLatitude(e.nativeEvent.coordinate.latitude);
@@ -200,6 +199,14 @@ const Search = (props) => {
             ></Marker>
           </MapView>
         </View>
+        <View
+          style={{ width: "80%", alignContent: "flex-start", marginBottom: 10 }}
+        >
+          <Text style={{ color: "#888888" }}>
+            Hold and drag the pin to choose a different location.
+          </Text>
+        </View>
+
         <View>
           <Text style={{ textAlign: "center", margin: 10 }}>
             Indoor or Outdoor?
@@ -212,9 +219,6 @@ const Search = (props) => {
         </View>
         <Text style={{ color: "red", margin: 10 }}>{error ? error : null}</Text>
         <Button title="Search" onPress={() => search()} />
-        <Text style={{ marginTop: 35, width: "80%", textAlign: "center" }}>
-          {text}
-        </Text>
       </View>
     </FormContainer>
   );
@@ -223,13 +227,13 @@ const Search = (props) => {
 const styles = StyleSheet.create({
   MapView: {
     width: "80%",
-    height: 200,
+    height: height / 3,
     borderRadius: 10,
     alignItems: "center",
   },
   map: {
     width: "100%",
-    height: 200,
+    height: height / 3,
   },
   container: {
     flex: 1,
@@ -244,9 +248,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   datePickerStyle: {
-    width: 230,
+    width: "80%",
     backgroundColor: "#ddf3ff",
     marginBottom: 10,
+    paddingLeft: 16,
   },
   text: {
     textAlign: "left",

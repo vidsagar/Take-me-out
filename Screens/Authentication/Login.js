@@ -2,8 +2,6 @@ import React, { useEffect, useContext, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import FormContainer from "../../Shared/Form/FormContainer";
 import Input from "../../Shared/Form/Input";
-import Error from "../../Shared/Form/Error";
-import Toast from "react-native-toast-message";
 
 // Context API
 import AuthGlobal from "../../Context/store/AuthGlobal";
@@ -29,7 +27,6 @@ const Login = (props) => {
     if (email === "" || password === "") {
       setError("Please fill in your credentials");
     } else {
-      //props.navigation.navigate("AppHome");
       loginUser(user, context.dispatch);
     }
   };

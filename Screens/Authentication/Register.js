@@ -18,8 +18,20 @@ const Register = (props) => {
   const [error, setError] = useState("");
 
   const register = () => {
-    if (email === "" || fname === "" || lname === "" || password === "") {
+    if (
+      ValidateEmail(email) ||
+      fname === "" ||
+      lname === "" ||
+      password === ""
+    ) {
       setError("Please fill in the form correctly");
+    }
+
+    function ValidateEmail(email) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        return true;
+      }
+      return false;
     }
 
     let user = {

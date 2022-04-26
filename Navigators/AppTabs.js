@@ -4,7 +4,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 //Stacks
 import HomeNavigator from "./HomeNavigator";
-import UserNavigator from "./UserNavigator";
 import SearchNavigator from "./SearchNavigator";
 import UserProfile from "../Screens/Authentication/UserProfile";
 
@@ -14,8 +13,8 @@ const AppTabs = () => {
   return (
     <Tab.Navigator
       initialRouteName="Search"
-      screenOptions={{ headerShown: false }}
-      tabBarOptions={{
+      screenOptions={{
+        headerShown: false,
         keyboardHidesTabBar: true,
         showLabel: false,
         activeTintColor: "#e91e63",

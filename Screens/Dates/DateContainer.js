@@ -29,10 +29,18 @@ const DateContainer = (props) => {
       </View>
     );
   } else if (data.length > 0) {
+    console.log(data[count]);
     if (data[count].hasOwnProperty("photoRef")) {
-      if (data[count].indoorOutdoor) {
+      if (
+        data[count].photoRef.length > 5 &&
+        data[count].photoRef.substr(0, 4) === "http"
+      ) {
         photoURI = data[count].photoRef;
-      } else if (!data[count].indoorOutdoor) {
+        console.log(photoURI);
+      } else if (
+        data[count].photoRef.length > 5 &&
+        data[count].photoRef.substr(0, 4) != "http"
+      ) {
         photoURI =
           "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" +
           data[count].photoRef +
@@ -97,7 +105,7 @@ const DateContainer = (props) => {
               title={data[count].name}
             >
               <Image
-                style={{ width: 70, height: 70 }}
+                style={{ width: 100, height: 100 }}
                 source={
                   photoURI ? (
                     {
