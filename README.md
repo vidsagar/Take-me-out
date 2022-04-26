@@ -1,4 +1,5 @@
 To Run the app, first install expo cli on your android phone. Then go to this link: https://expo.dev/@vid_dev/Take-me-out. Once you get to this link, you can scan the qr to run the app on your android phone through expo cli.
+Since the backend is already deployed to heroku server, the app will run without the need to start the backend locally. The source code for the backend can be viewed at: https://github.com/infiniteadmiral/Take-Me-Out-Final.
 
 # Take-me-out
 Frontend for Take me out app
